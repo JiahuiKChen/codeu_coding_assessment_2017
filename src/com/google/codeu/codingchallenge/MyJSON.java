@@ -15,8 +15,13 @@
 package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 final class MyJSON implements JSON {
+
+  Map<String, Object> data = new HashMap<>();
 
   @Override
   public JSON getObject(String name) {
