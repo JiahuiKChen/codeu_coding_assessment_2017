@@ -79,10 +79,13 @@ final class MyJSONParser implements JSONParser {
             // Search for a comma, signifying that we have more keys.
             for (int index = valueEnd; index < in.length(); index++) {
                 if (in.charAt(index) == ',') {
-                    // We found a comma, so there is probably another key.
-                    hasMoreKeys = true;
                     // Trim down the input so that it starts at the next key.
                     in = in.substring(index + 1).trim();
+                    // We found a comma, so there is probably another key.
+                    hasMoreKeys = true;
+                    // Check for a starting quotation mark. If one is not found, throw an error.
+                    if(!in.startsWith("\""))
+                        throw new IllegalArgumentException("Could not parse object: missing start quotation mark on key.");
                     continue keyFinder;
                 }
             }
@@ -122,7 +125,6 @@ final class MyJSONParser implements JSONParser {
                 break;
             }
         }
-
         return endIndex;
     }
 

@@ -14,10 +14,7 @@
 
 package com.google.codeu.codingchallenge;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 final class MyJSON implements JSON {
 
@@ -25,35 +22,46 @@ final class MyJSON implements JSON {
 
   @Override
   public JSON getObject(String name) {
-    // TODO: implement this
-    return null;
+    return (JSON) data.get(name);
   }
 
   @Override
   public JSON setObject(String name, JSON value) {
-    // TODO: implement this
+    data.put(name, value);
     return this;
   }
 
   @Override
   public String getString(String name) {
-    // TODO: implement this
-    return null;
+    return (String) data.get(name);
   }
 
   @Override
   public JSON setString(String name, String value) {
-    // TODO: implement this
+    data.put(name, value);
     return this;
   }
 
   @Override
   public void getObjects(Collection<String> names) {
-    // TODO: implement this
+    //puts entries of the backing map into a set, and all the entries
+    //with objects as values have their keys or names added to the parameter collection
+    for (Map.Entry<String, Object> entry : data.entrySet()){
+      if (entry.getValue() instanceof JSON){
+        names.add(entry.getKey());
+      }
+    }
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-    // TODO: implement this
+    //puts entries of the backing map into a set, and all the entries
+    //with Strings as values have their keys or names added to the parameter collection
+    for (Map.Entry<String, Object> entry : data.entrySet()){
+      if (entry.getValue() instanceof String){
+        names.add(entry.getKey());
+      }
+    }
   }
+
 }
